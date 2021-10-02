@@ -4,6 +4,13 @@
 #           dotplots            #
 #################################
 
+# This function calculates the % of cells of each treatment group (condition) contributing to 
+# The score of a certain signalling pathway, corresponding to the number of cells in a condition having 
+# a score that is included within the median + or - the standard deviation of the score for that pathway
+# in the condition of interest. Then, it assesses the mean and the median pathway scores for each pathway
+# and treatment group. Based on these two metrics, it calculates the significance of the scores for each condition
+# as compared to the NT group using the pairwise Wilcoxon rank sum test. 
+
 dotplot_pathway_scores_conditions <- function(pathway_scores, conditions = c("NT", "AG", "R", "RAG"), patient) {
   dotplot_df_conditions <- data.frame(Condition = conditions)
   for (pathway in colnames(pathway_scores)[1:9]){
@@ -23,9 +30,9 @@ dotplot_pathway_scores_conditions <- function(pathway_scores, conditions = c("NT
   dotplot_df_conditions$Median <- c(rep(NA, times = nrow(dotplot_df_conditions)))
   dotplot_df_conditions$Mean <- c(rep(NA, times = nrow(dotplot_df_conditions)))
   
-  #1. Finding the % of cells in each cluster that contribute to a specific score
-  #2. Computing the mean of each adtClusterID per each score
-  #3. Computing the median of each adtClusterID per each score
+  #1. Finding the % of cells in each condition that contribute to a specific score
+  #2. Computing the mean of each condition per each score
+  #3. Computing the median of each condition per each score
   for (row in 1:nrow(dotplot_df_conditions)){
     dotplot_df_conditions[row, "% Cells"] <- dotplot_df_conditions[row, "Cells"]/(nrow(pathway_scores[pathway_scores$orig.ident == dotplot_df_conditions[row, "Condition"],])) * 100
     dotplot_df_conditions[row, "Mean"] <- mean(pathway_scores[pathway_scores$orig.ident == dotplot_df_conditions[row, "Condition"], as.character(dotplot_df_conditions[row, "Pathway"])])
@@ -60,7 +67,7 @@ dotplot_pathway_scores_conditions <- function(pathway_scores, conditions = c("NT
   dotplot_df_conditions$Condition <- factor(dotplot_df_conditions$Condition, levels = conditions)
   
   #Nice names for the pathways
-  #Function for fist letter of a string capitalized
+  #Function for first letter of a string capitalized
   capFirst <- function(s) {
     paste(toupper(substring(s, 1, 1)), substring(s, 2), sep = "")
   }
@@ -90,9 +97,13 @@ dotplot_pathway_scores_conditions <- function(pathway_scores, conditions = c("NT
   return(plot)
 }
 
-#Cluster-based pathway scores dotplot with custom list of numeric clusters
-#Two functions have been deployed because melt() leads to different outputs 
-#Depending on the type 
+# Cluster-based pathway scores dotplot with custom list of numeric clusters
+# This function calculates the % of cells of each (ADT) cluster contributing to 
+# The score of a certain signalling pathway, corresponding to the number of cells in a condition having 
+# a score that is included within the median + or - the standard deviation of the score for that pathway
+# in the cluster of interest. Then, it assesses the mean and the median pathway scores for each pathway
+# and cluster. Based on these two metrics, it calculates the significance of the scores for each cluster
+# as compared to a set of randomly sampled scores from the other clusters but for the same pathway. 
 
 dotplot_pathway_scores_clusters <- function(pathway_scores, clusters, patient) {
   dotplot_df_clusters <- data.frame(Cluster = clusters)
