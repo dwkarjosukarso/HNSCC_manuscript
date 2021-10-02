@@ -3,7 +3,9 @@
 #   single-cell pathway scores  #
 #################################
 
-#Single cell pathway scores ####
+#This function calculates the pathway scores of a given Seurat object's ADT, TMM normalized data
+#For the WNT-, BMP-, TNFa-, TGFb-, Notch-, EGF-, JAK-STAT-, adhesion, and differentiation signalling pathways.
+
 sc_pathway_scores <- function(Seurat_split.integrated){
   
   std_ADT <- Seurat_split.integrated[["TMM"]]@scale.data
