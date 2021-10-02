@@ -9,8 +9,6 @@ library(patchwork)
 library(Nebulosa)
 
 #KS DE function ####
-#Disclaimer: the following calculations are based on TMM normalization, 
-#hence, the Seurat assay of choice is TMM.
 
 # - object: Seurat object
 # - cluster_1: cluster 1 for the comparison
