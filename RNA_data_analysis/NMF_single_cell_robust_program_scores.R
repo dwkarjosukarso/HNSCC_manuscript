@@ -20,13 +20,13 @@ sc_NMF_robust_programs_scores <- function(seurat_object, NMF_programs){
   for (program in names(NMF_programs)){
     print(paste0("Calculation scores for ", program))
     
-    # #1. Creation of a matrix with row names the genes of the NMF program for which we want to compute the score.
-    # #   Since not all the genes in the NMF programs are present with the SCT scale.data slot, we need to find the
-    # #   Intersection between those genes and the NMF robust program under study.
+    # 1. Creation of a matrix with row names the genes of the NMF program for which we want to compute the score.
+    #   Since not all the genes in the NMF programs are present with the SCT scale.data slot, we need to find the
+    #   Intersection between those genes and the NMF robust program under study.
     filtered_std_RNA <- seurat_object[intersect(rownames(seurat_object), NMF_programs[[program]]),]
     
-    # #2. Calculation of the score for all the cells: the SCT counts of the available genes
-    # #   in the NMF programs are summed together and divided by the number of genes considered in the score. 
+    # 2. Calculation of the score for all the cells: the SCT counts of the available genes
+    #   in the NMF programs are summed together and divided by the number of genes considered in the score. 
     
     #In this list there are 50 dataframes containing each the SCT count of one gene per each cell
     #The 50 datafames correspond to the 50 genes in each program
