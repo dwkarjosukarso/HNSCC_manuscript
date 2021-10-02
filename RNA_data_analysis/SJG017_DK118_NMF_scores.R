@@ -110,8 +110,8 @@ ggsave(filename = "DK118_FeaturePlot_NMF_programs_scores_TMMumap.pdf", dpi = 700
 
 matrix_for_programs <- GetAssayData(DK118, assay = "SCT", slot = "data")
 matrix_for_programs <- matrix_for_programs[intersect(as.vector(unlist(NMF_programs)), rownames(matrix_for_programs)),]
-write.csv(matrix_for_programs, file = "DK118_SCT_data_NMF_NMF_programs_genes.csv")
+write.csv(matrix_for_programs, file = "DK118_SCT_data_NMF_programs_genes.csv")
 
 matrix_for_programs <- GetAssayData(DK118, assay = "SCT", slot = "scale.data")
 matrix_for_programs <- matrix_for_programs[intersect(as.vector(unlist(NMF_programs)), rownames(matrix_for_programs)),]
-write.csv(matrix_for_programs, file = "DK118_SCT_scale.data_NMF_NMF_programs_genes.csv")
+write.csv(matrix_for_programs, file = "DK118_SCT_scale.data_NMF_programs_genes.csv")
