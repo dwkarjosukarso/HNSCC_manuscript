@@ -1,8 +1,8 @@
 #########################################
 #          RNA data analysis            #
 #        NMF robust expression          #
-#     programs on DK114 & DK118         #
-#             datasets                  #
+#     programs on SJG-026 DK114 &       #
+#        SJG-017 DK118 datasets         #
 #########################################
 
 #This function extracts the top 50 genes by NMF basis score
