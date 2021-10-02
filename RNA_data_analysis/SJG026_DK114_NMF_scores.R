@@ -5,7 +5,7 @@
 #    only programs from same    #
 #    experimental conditions    #
 #       no negative values      #
-#           transformed         #
+#          transformed          #
 #         SJG-026 DK-114        #
 #################################
 
@@ -108,8 +108,8 @@ ggsave(filename = "DK114_FeaturePlot_NMF_programs_scores_TMMumap.pdf", dpi = 700
 
 matrix_for_programs <- GetAssayData(DK114, assay = "SCT", slot = "data")
 matrix_for_programs <- matrix_for_programs[intersect(as.vector(unlist(NMF_programs)), rownames(matrix_for_programs)),]
-write.csv(matrix_for_programs, file = "DK114_SCT_data_NMF_NMF_programs_genes.csv")
+write.csv(matrix_for_programs, file = "DK114_SCT_data_NMF_programs_genes.csv")
 
 matrix_for_programs <- GetAssayData(DK114, assay = "SCT", slot = "scale.data")
 matrix_for_programs <- matrix_for_programs[intersect(as.vector(unlist(NMF_programs)), rownames(matrix_for_programs)),]
-write.csv(matrix_for_programs, file = "DK114_SCT_scale.data_NMF_NMF_programs_genes.csv")
+write.csv(matrix_for_programs, file = "DK114_SCT_scale.data_NMF_programs_genes.csv")
