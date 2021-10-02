@@ -67,7 +67,7 @@ DK118_all_high_expr_mRNAs_tolerance <- as.data.frame(t(DK118_all_high_expr_mRNAs
 #Filtering the robust expression programs for the genes filtered by the expression level such that 5% of the genes have >= that expression level
 DK118_high_expr_genes_robust_expression_programs <- lapply(robust_expression_programs, function(x) intersect(DK118_high_expr_genes, x))
 
-#Taking the union of the mRNA selected in the two patients' datasets
+#Taking the union of the mRNAs selected in the two patients' datasets
 #Keeping the info on what genes are patient-specific
 #First we check that for both patients we have the same programs as elements in the respective lists of mRNAs
 
@@ -229,7 +229,6 @@ DK118_specific_tol_mRNA$Tolerance_score <- DK118_tolerance_score$tolerance_score
 
 #In order to find the patient-specific mRNAs involved in tolerance, we run patient-specific RF models
 #1. With tuneRF we find the best range
-
 #DK114
 colnames(DK114_tol_mRNA) <- make.names(colnames(DK114_tol_mRNA))
 set.seed(1)
@@ -277,6 +276,7 @@ DK114_significant_top_mRNAs <- DK114_significant_mRNAs[DK114_significant_mRNAs$`
 write.csv(DK114_significant_top_mRNAs, file = "DK114_significant_and_important_mRNAs_RF_union.csv")
 
 #DK118
+#1. With tuneRF we find the best range
 colnames(DK118_tol_mRNA) <- make.names(colnames(DK118_tol_mRNA))
 set.seed(1)
 DK118_tuneRF_res = lapply(1:10,function(i){
@@ -322,4 +322,4 @@ DK118_mean_imp <- mean(DK118_significant_mRNAs$`%IncMSE`)
 DK118_significant_top_mRNAs <- DK118_significant_mRNAs[DK118_significant_mRNAs$`%IncMSE` > DK118_mean_imp,] 
 write.csv(DK118_significant_top_mRNAs, file = "DK118_significant_and_important_mRNAs_RF_union.csv")
 
-save.image(file = "19072021_union_final.RData")
+save.image(file = "mRNAs_markers_of_tolerance.RData")
