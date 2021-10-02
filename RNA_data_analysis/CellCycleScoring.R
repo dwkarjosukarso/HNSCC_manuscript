@@ -5,12 +5,11 @@
 
 library(readxl)
 library(Seurat)
+library(cowplot)
 
 #Loading Seurat objects of the two patients' datasets
 DK114 <- readRDS(file = 'DK114_Seurat_split.integrated.RDS')
 DK118 <- readRDS(file = 'DK118_Seurat_split.integrated.RDS')
-DK104 <- readRDS(file = 'DK104_Seurat_split.integrated.RDS')
-DK126 <- readRDS(file = 'DK126_Seurat_split.integrated.RDS')
 
 #List of G1/S and G2/M phase genes from Dominguez et al. 2016 (https://www.nature.com/articles/cr201684#MOESM19)
 cellcycle_genes_dominguez <- as.data.frame(read_xlsx(path = 'Dominguez et al 2016.xlsx', skip = 4))
@@ -47,19 +46,9 @@ DK114 <- CellCycleScoring(DK114, s.features = G1S_genes, g2m.features = G2M_gene
 DefaultAssay(DK118) <- "SCT"
 DK118 <- CellCycleScoring(DK118, s.features = G1S_genes, g2m.features = G2M_genes, set.ident = TRUE)
 
-DefaultAssay(DK104) <- "SCT"
-DK104 <- CellCycleScoring(DK104, s.features = G1S_genes, g2m.features = G2M_genes, set.ident = TRUE)
-
-DefaultAssay(DK126) <- "SCT"
-DK126 <- CellCycleScoring(DK126, s.features = G1S_genes, g2m.features = G2M_genes, set.ident = TRUE)
-
-library(cowplot)
-
-levels(DK114) <- levels(DK118) <- levels(DK104) <- levels(DK126) <- c("G1", "G2M", "S")
+levels(DK114) <- levels(DK118) <- c("G1", "G2M", "S")
 
 p1 <- DimPlot(DK114, pt.size = 0.5)
 p2 <- DimPlot(DK118, pt.size = 0.5)
-p3 <- DimPlot(DK104)
-p4 <- DimPlot(DK126)
 
-ggsave(plot_grid(p1, p2, p3, p4), dpi = 300, filename = "CellCycleScoring_UMAP.pdf", width = 10, height = 8)
+ggsave(plot_grid(p1, p2), dpi = 300, filename = "CellCycleScoring_UMAP.pdf", width = 10, height = 8)
