@@ -1,11 +1,8 @@
-###############################
-#   Identification of the     #
-#    markers of tolerance     # 
-#    using Random Forest      #
-#  validation with stepwise   #  
-#     regression-based        #  
-#       linear model          #  
-###############################
+##########################################################
+#       Identification of the markers of tolerance       # 
+#     using Random Forest & validation with stepwise     #  
+#              regression-based linear model             #  
+##########################################################
 
 library(Seurat)
 library(readxl)
