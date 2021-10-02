@@ -1,6 +1,6 @@
 ###################################################################################
 #                               RNA data analysis                                 #
-#                 - Differential expression analysis using                        #
+#                   Differential expression analysis using                        #
 #                             Wilcoxon Rank Sum Test                              #
 ###################################################################################
 
