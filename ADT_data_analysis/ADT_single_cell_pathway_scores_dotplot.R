@@ -10,6 +10,7 @@
 # in the condition of interest. Then, it assesses the mean and the median pathway scores for each pathway
 # and treatment group. Based on these two metrics, it calculates the significance of the scores for each condition
 # as compared to the NT group using the pairwise Wilcoxon rank sum test. 
+# The results are delivered through a dot plot.
 
 dotplot_pathway_scores_conditions <- function(pathway_scores, conditions = c("NT", "AG", "R", "RAG"), patient) {
   dotplot_df_conditions <- data.frame(Condition = conditions)
@@ -104,6 +105,7 @@ dotplot_pathway_scores_conditions <- function(pathway_scores, conditions = c("NT
 # in the cluster of interest. Then, it assesses the mean and the median pathway scores for each pathway
 # and cluster. Based on these two metrics, it calculates the significance of the scores for each cluster
 # as compared to a set of randomly sampled scores from the other clusters but for the same pathway. 
+# The results are delivered through a dot plot.
 
 dotplot_pathway_scores_clusters <- function(pathway_scores, clusters, patient) {
   dotplot_df_clusters <- data.frame(Cluster = clusters)
