@@ -9,7 +9,7 @@
 #Which correspond to the metagenes.
 source("NMF_metagenes_function.R")
 
-#Kinker et al. robust NMF programs function.
+#Kinker et al., 2020 robust NMF programs function.
 source("robust_nmf_programs.R")
 
 #Metagenes in each dataset for the ranks 5 to 10
