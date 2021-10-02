@@ -1,7 +1,7 @@
 #################################
 #       ADT data analysis       #
 #   single-cell pathway scores  #
-#           dotplots            #
+#           dot plots           #
 #################################
 
 # This function calculates the % of cells of each treatment group (condition) contributing to 
