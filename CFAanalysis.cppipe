@@ -1,0 +1,289 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:413
+GitHash:
+ModuleCount:18
+HasImagePlaneDetails:False
+
+Images:[module_num:1|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    :
+    Filter images?:Images only
+    Select the rule criteria:and (extension does isimage) (directory doesnot containregexp "[\\\\\\\\/]\\\\.")
+
+Metadata:[module_num:2|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:['The Metadata module optionally allows you to extract information describing your images (i.e, metadata) which will be stored along with your measurements. This information can be contained in the file name and/or location, or in an external file.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Extract metadata?:Yes
+    Metadata data type:Text
+    Metadata types:{"Plate": "text", "FileLocation": "text", "Series": "text", "Frame": "text", "Well": "text", "Site": "text", "ChannelNumber": "text"}
+    Extraction method count:1
+    Metadata extraction method:Extract from file/folder names
+    Metadata source:File name
+    Regular expression to extract from file name:^(?P<Image_ID>.*)_(?P<channel>.*).tif
+    Regular expression to extract from folder name:(?P<Date>[0-9]{4}_[0-9]{2}_[0-9]{2})$
+    Extract metadata from:All images
+    Select the filtering criteria:and (file does contain "")
+    Metadata file location:Elsewhere...|
+    Match file and image metadata:[]
+    Use case insensitive matching?:No
+    Metadata file name:
+    Does cached metadata exist?:No
+
+NamesAndTypes:[module_num:3|svn_version:'Unknown'|variable_revision_number:8|show_window:False|notes:['The NamesAndTypes module allows you to assign a meaningful name to each image by which other modules will refer to it.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Assign a name to:Images matching rules
+    Select the image type:Grayscale image
+    Name to assign these images:DNA
+    Match metadata:[]
+    Image set matching method:Order
+    Set intensity range from:Image metadata
+    Assignments count:2
+    Single images count:2
+    Maximum intensity:255.0
+    Process as 3D?:No
+    Relative pixel spacing in X:1.0
+    Relative pixel spacing in Y:1.0
+    Relative pixel spacing in Z:1.0
+    Select the rule criteria:and (file does contain "700")
+    Name to assign these images:Draq5Orig
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (file does contain "800")
+    Name to assign these images:ITGB1Orig
+    Name to assign these objects:Nucleus
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Single image location:file:///E:/POSTDOC/05%20projects/01%20KWF/cell_profiler2/J23T3_red.tif   
+    Name to assign this image:Draq5Illum
+    Name to assign these objects:Cytoplasm
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Single image location:file:///E:/POSTDOC/05%20projects/01%20KWF/cell_profiler2/J23T3_green.tif   
+    Name to assign this image:ITGB1Illum
+    Name to assign these objects:Speckle
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+
+Groups:[module_num:4|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['The Groups module optionally allows you to split your list of images into image subsets (groups) which will be processed independently of each other. Examples of groupings include screening batches, microtiter plates, time-lapse movies, etc.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Do you want to group your images?:No
+    grouping metadata count:1
+    Metadata category:Image_ID
+
+RescaleIntensity:[module_num:5|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Draq5Orig
+    Name the output image:RescaledDraq5Orig
+    Rescaling method:Stretch each image to use the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+RescaleIntensity:[module_num:6|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:ITGB1Orig
+    Name the output image:RescaledITGB1Orig
+    Rescaling method:Stretch each image to use the full intensity range
+    Method to calculate the minimum intensity:Custom
+    Method to calculate the maximum intensity:Custom
+    Lower intensity limit for the input image:0.0
+    Upper intensity limit for the input image:1.0
+    Intensity range for the input image:0.0,1.0
+    Intensity range for the output image:0.0,1.0
+    Select image to match in maximum intensity:None
+    Divisor value:1.0
+    Divisor measurement:None
+
+Align:[module_num:7|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the alignment method:Mutual Information
+    Crop mode:Crop to aligned region
+    Select the first input image:RescaledDraq5Orig
+    Name the first output image:AlignedDraq5Orig
+    Select the second input image:RescaledITGB1Orig
+    Name the second output image:AlignedITGB1Orig
+    Select the additional image:Draq5Illum
+    Name the output image:AlignedDraq5Illum
+    Select how the alignment is to be applied:Separately
+    Select the additional image:ITGB1Illum
+    Name the output image:AlignedITGB1Illum
+    Select how the alignment is to be applied:Separately
+
+DefineGrid:[module_num:8|svn_version:'Unknown'|variable_revision_number:1|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Name the grid:Grid_plate
+    Number of rows:2
+    Number of columns:3
+    Location of the first spot:Top left
+    Order of the spots:Rows
+    Define a grid for which cycle?:Once
+    Select the method to define the grid:Manual
+    Select the previously identified objects:None
+    Select the method to define the grid manually:Coordinates
+    Select the image to display when drawing:RescaledDraq5Orig
+    Coordinates of the first cell:133,180
+    Row number of the first cell:1
+    Column number of the first cell:1
+    Coordinates of the second cell:590,408
+    Row number of the second cell:2
+    Column number of the second cell:3
+    Retain an image of the grid?:No
+    Name the output image:Grid
+    Select the image on which to display the grid:RescaledDraq5Orig
+    Use a previous grid if gridding fails?:No
+
+IdentifyObjectsInGrid:[module_num:9|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the defined grid:Grid_plate
+    Name the objects to be identified:Grid_6wells
+    Select object shapes and locations:Circle Forced Location
+    Specify the circle diameter automatically?:Manual
+    Circle diameter:212
+    Select the guiding objects:None
+
+CorrectIlluminationApply:[module_num:10|svn_version:'Unknown'|variable_revision_number:5|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:AlignedDraq5Orig
+    Name the output image:Draq5Corr
+    Select the illumination function:AlignedDraq5Illum
+    Select how the illumination function is applied:Divide
+    Select the input image:AlignedITGB1Orig
+    Name the output image:ITGB1Corr
+    Select the illumination function:AlignedITGB1Illum
+    Select how the illumination function is applied:Subtract
+    Set output image values less than 0 equal to 0?:Yes
+    Set output image values greater than 1 equal to 1?:Yes
+
+IdentifyPrimaryObjects:[module_num:11|svn_version:'Unknown'|variable_revision_number:14|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:Draq5Corr
+    Name the primary objects to be identified:ColoniesDraq5
+    Typical diameter of objects, in pixel units (Min,Max):5,300
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:No
+    Method to distinguish clumped objects:Intensity
+    Method to draw dividing lines between clumped objects:Intensity
+    Size of smoothing filter:0.1
+    Suppress local maxima that are closer than this minimum allowed distance:1
+    Speed up by using lower-resolution image to find local maxima?:No
+    Fill holes in identified objects?:After declumping only
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Display accepted local maxima?:No
+    Select maxima color:Blue
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Threshold smoothing scale:0.1
+    Threshold correction factor:10
+    Lower and upper bounds on threshold:0.0,0.2
+    Manual threshold:2
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Background
+    Size of adaptive window:10
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2
+    Thresholding method:Otsu
+
+RelateObjects:[module_num:12|svn_version:'Unknown'|variable_revision_number:5|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:Grid_6wells
+    Child objects:ColoniesDraq5
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:No
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:No
+    Name the output object:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+    Parent name:None
+
+MaskObjects:[module_num:13|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select objects to be masked:Grid_6wells
+    Name the masked objects:Background
+    Mask using a region defined by other objects or by binary image?:Objects
+    Select the masking object:ColoniesDraq5
+    Select the masking image:None
+    Handling of objects that are partially masked:Keep overlapping region
+    Fraction of object that must overlap:0.5
+    Numbering of resulting objects:Renumber
+    Invert the mask?:Yes
+
+MeasureObjectIntensity:[module_num:14|svn_version:'Unknown'|variable_revision_number:4|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select images to measure:Draq5Orig
+    Select objects to measure:ColoniesDraq5, Background
+
+MeasureObjectSizeShape:[module_num:15|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select object sets to measure:Background, ColoniesDraq5
+    Calculate the Zernike features?:No
+    Calculate the advanced features?:No
+
+DisplayDataOnImage:[module_num:16|svn_version:'Unknown'|variable_revision_number:6|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Display object or image measurements?:Object
+    Select the input objects:Grid_6wells
+    Measurement to display:Number_Object_Number
+    Select the image on which to display the measurements:Draq5Orig
+    Text color:blue
+    Name the output image that has the measurements displayed:Well_numbering
+    Font size (points):12
+    Number of decimals:2
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image\'s measurement range
+    Color map range:0.0,1.0
+
+SaveImages:[module_num:17|svn_version:'Unknown'|variable_revision_number:15|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select the type of image to save:Image
+    Select the image to save:Well_numbering
+    Select method for constructing file names:From image filename
+    Select image name for file prefix:Draq5Orig
+    Enter single file name:OrigBlue
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:_annotated_wells
+    Saved file format:tiff
+    Output file location:Same folder as image|images
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:No
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Default Output Folder sub-folder|
+    How to save the series:T (Time)
+
+ExportToSpreadsheet:[module_num:18|svn_version:'Unknown'|variable_revision_number:13|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the column delimiter:Comma (",")
+    Add image metadata columns to your object data file?:Yes
+    Add image file and folder names to your object data file?:Yes
+    Select the measurements to export:Yes
+    Calculate the per-image mean values for object measurements?:No
+    Calculate the per-image median values for object measurements?:No
+    Calculate the per-image standard deviation values for object measurements?:No
+    Output file location:Elsewhere...|E:\\POSTDOC\\05 projects\\01 KWF\\cell_profiler2
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:None
+    Export all measurement types?:Yes
+    Press button to select measurements:ColoniesDraq5|Intensity_MedianIntensity_Draq5Orig,ColoniesDraq5|Intensity_MedianIntensity_TGM1Orig,ColoniesDraq5|Intensity_MassDisplacement_TGM1Orig,ColoniesDraq5|Intensity_MassDisplacement_Draq5Orig,ColoniesDraq5|Intensity_MinIntensityEdge_Draq5Orig,ColoniesDraq5|Intensity_MinIntensityEdge_TGM1Orig,ColoniesDraq5|Intensity_MinIntensity_Draq5Orig,ColoniesDraq5|Intensity_MinIntensity_TGM1Orig,ColoniesDraq5|Intensity_MeanIntensity_Draq5Orig,ColoniesDraq5|Intensity_MeanIntensity_TGM1Orig,ColoniesDraq5|Intensity_MaxIntensityEdge_TGM1Orig,ColoniesDraq5|Intensity_MaxIntensityEdge_Draq5Orig,ColoniesDraq5|Intensity_StdIntensity_TGM1Orig,ColoniesDraq5|Intensity_StdIntensity_Draq5Orig,ColoniesDraq5|Intensity_IntegratedIntensity_TGM1Orig,ColoniesDraq5|Intensity_IntegratedIntensity_Draq5Orig,ColoniesDraq5|Intensity_LowerQuartileIntensity_Draq5Orig,ColoniesDraq5|Intensity_LowerQuartileIntensity_TGM1Orig,ColoniesDraq5|Intensity_IntegratedIntensityEdge_Draq5Orig,ColoniesDraq5|Intensity_IntegratedIntensityEdge_TGM1Orig,ColoniesDraq5|Intensity_MeanIntensityEdge_Draq5Orig,ColoniesDraq5|Intensity_MeanIntensityEdge_TGM1Orig,ColoniesDraq5|Intensity_MaxIntensity_TGM1Orig,ColoniesDraq5|Intensity_MaxIntensity_Draq5Orig,ColoniesDraq5|Intensity_StdIntensityEdge_TGM1Orig,ColoniesDraq5|Intensity_StdIntensityEdge_Draq5Orig,ColoniesDraq5|Intensity_MADIntensity_Draq5Orig,ColoniesDraq5|Intensity_MADIntensity_TGM1Orig,ColoniesDraq5|Intensity_UpperQuartileIntensity_TGM1Orig,ColoniesDraq5|Intensity_UpperQuartileIntensity_Draq5Orig,ColoniesDraq5|Parent_Grid_6wells,ColoniesDraq5|AreaShape_Center_X,ColoniesDraq5|AreaShape_Center_Y,ColoniesDraq5|AreaShape_MedianRadius,ColoniesDraq5|AreaShape_BoundingBoxMinimum_Y,ColoniesDraq5|AreaShape_BoundingBoxMinimum_X,ColoniesDraq5|AreaShape_BoundingBoxMaximum_X,ColoniesDraq5|AreaShape_BoundingBoxMaximum_Y,ColoniesDraq5|AreaShape_EulerNumber,ColoniesDraq5|AreaShape_Extent,ColoniesDraq5|AreaShape_Solidity,ColoniesDraq5|AreaShape_Orientation,ColoniesDraq5|AreaShape_MinFeretDiameter,ColoniesDraq5|AreaShape_FormFactor,ColoniesDraq5|AreaShape_MinorAxisLength,ColoniesDraq5|AreaShape_BoundingBoxArea,ColoniesDraq5|AreaShape_EquivalentDiameter,ColoniesDraq5|AreaShape_MeanRadius,ColoniesDraq5|AreaShape_MajorAxisLength,ColoniesDraq5|AreaShape_Area,ColoniesDraq5|AreaShape_Compactness,ColoniesDraq5|AreaShape_MaximumRadius,ColoniesDraq5|AreaShape_Eccentricity,ColoniesDraq5|AreaShape_MaxFeretDiameter,ColoniesDraq5|AreaShape_Perimeter,ColoniesDraq5|Location_Center_Y,ColoniesDraq5|Location_Center_Z,ColoniesDraq5|Location_Center_X,ColoniesDraq5|Location_CenterMassIntensity_X_Draq5Orig,ColoniesDraq5|Location_CenterMassIntensity_X_TGM1Orig,ColoniesDraq5|Location_CenterMassIntensity_Z_TGM1Orig,ColoniesDraq5|Location_CenterMassIntensity_Z_Draq5Orig,ColoniesDraq5|Location_CenterMassIntensity_Y_TGM1Orig,ColoniesDraq5|Location_CenterMassIntensity_Y_Draq5Orig,ColoniesDraq5|Location_MaxIntensity_Z_TGM1Orig,ColoniesDraq5|Location_MaxIntensity_Z_Draq5Orig,ColoniesDraq5|Location_MaxIntensity_X_TGM1Orig,ColoniesDraq5|Location_MaxIntensity_X_Draq5Orig,ColoniesDraq5|Location_MaxIntensity_Y_Draq5Orig,ColoniesDraq5|Location_MaxIntensity_Y_TGM1Orig,ColoniesDraq5|Number_Object_Number
+    Representation of Nan/Inf:NaN
+    Add a prefix to file names?:Yes
+    Filename prefix:test_
+    Overwrite existing files without warning?:No
+    Data to export:Do not use
+    Combine these object measurements with those of the previous object?:No
+    File name:DATA.csv
+    Use the object name for the file name?:Yes
